@@ -1,0 +1,19 @@
+# sessoes do arkhe sao arquivos .md com notas pessoais: nao subir pro github
+*.md
+!README.md
+
+# arquivo antigo de teste dos memos
+memos.txt
+
+# material de estudo, nao faz parte do app
+tutorial.lua
+
+# configuracoes locais (tem caminhos da sua maquina)
+.vscode/
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# app compilado (gerado pelo build_mac.sh)
+build/
