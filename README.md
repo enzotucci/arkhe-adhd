@@ -1,70 +1,72 @@
 # arkhe-adhd
 
-Armazenador pessoal de notas rápidas (memos), pensado para TDAH: anotar rápido, sem fricção, e depois conseguir ligar ideias, como no Obsidian.
+A personal quick-notes (memos) app built with ADHD in mind: write things down fast, with no friction, and later be able to link ideas together, like in Obsidian.
 
-O app funciona por **sessão**. Cada sessão é um arquivo `.md`, guardado na pasta `arkhe_sessions` (criada ao iniciar, tanto pela GUI quanto pelo terminal), com título, contexto e os memos com data e hora:
+![arkhe-adhd interface](docs/screenshot.png)
+
+The app works by **session**. Each session is a `.md` file stored in the `arkhe_sessions` folder (created on startup by both the GUI and the terminal version), with a title, a context and the memos with their date and time:
 
 ```
-#estudos
-#   coisas de lua
-2026-10-27 20:04:25 - um memo
-2026-10-27 20:04:26 - outro memo
+#study
+#   lua notes
+2026-10-27 20:04:25 - a memo
+2026-10-27 20:04:26 - another memo
 ```
 
-## Como rodar
+## How to run
 
-### Interface gráfica (LÖVE)
+### Graphical interface (LÖVE)
 
-Precisa do [LÖVE](https://love2d.org) 11.5. Na pasta do projeto:
+Requires [LÖVE](https://love2d.org) 11.5. From the project folder:
 
 ```bash
 love .
 ```
 
-No macOS, se o comando `love` não estiver no PATH:
+On macOS, if the `love` command is not on your PATH:
 
 ```bash
 /Applications/love.app/Contents/MacOS/love .
 ```
 
-- Na tela inicial, digite o nome de uma sessão ou clique em **Open session** para escolher uma das existentes
-- **Enter** adiciona o memo
-- **↑ / ↓** ou clique selecionam um memo
-- **Delete** (tecla ou botão) remove o memo selecionado, inclusive do arquivo
-- **Ctrl+S / Cmd+S** ou o botão **Save** gravam os memos novos (também grava ao fechar)
+- On the start screen, type a session name or click **Open session** to pick an existing one
+- **Enter** adds a memo
+- **↑ / ↓** or a click selects a memo
+- **Delete** (key or button) removes the selected memo, from the file too
+- **Ctrl+S / Cmd+S** or the **Save** button writes new memos to the file (it also saves on close)
 
-### App de macOS
+### macOS app
 
-Para gerar um `arkhe-adhd.app` que abre com dois cliques (precisa do LÖVE em `/Applications`):
+To build an `arkhe-adhd.app` that opens with a double click (requires LÖVE in `/Applications`):
 
 ```bash
 ./build_mac.sh
 ```
 
-O app fica em `build/arkhe-adhd.app`. Antes, troque `pasta_projeto` no começo do `gui.lua` pelo caminho da pasta do projeto na sua máquina: é lá que o app compilado guarda as sessões. Se o projeto estiver na Mesa (Desktop) ou em Documentos, o macOS pede permissão de acesso na primeira vez.
+The app is created in `build/arkhe-adhd.app`. Before building, set `pasta_projeto` at the top of `gui.lua` to the project folder path on your machine: that is where the built app stores sessions. If the project is on the Desktop or in Documents, macOS asks for access permission the first time.
 
 ### Terminal
 
-Precisa de Lua 5.3 e da [LuaFileSystem](https://lunarmodules.github.io/luafilesystem/) (para criar e entrar na pasta `arkhe_sessions`):
+Requires Lua 5.3 and [LuaFileSystem](https://lunarmodules.github.io/luafilesystem/) (to create and enter the `arkhe_sessions` folder):
 
 ```bash
 luarocks install luafilesystem
 lua arkhe.lua
 ```
 
-## Estrutura
+## Structure
 
-| Arquivo | O que faz |
+| File | What it does |
 | --- | --- |
-| `functions.lua` | lógica dos memos e das sessões (usada pelas duas versões) |
-| `arkhe.lua` | versão de terminal |
-| `main.lua` | ponto de entrada do LÖVE (só carrega `gui.lua`) |
-| `gui.lua` | interface gráfica |
-| `conf.lua` | configuração da janela do LÖVE |
-| `build_mac.sh` | gera o app de macOS em `build/` |
+| `functions.lua` | memo and session logic (shared by both versions) |
+| `arkhe.lua` | terminal version |
+| `main.lua` | LÖVE entry point (only loads `gui.lua`) |
+| `gui.lua` | graphical interface |
+| `conf.lua` | LÖVE window settings |
+| `build_mac.sh` | builds the macOS app into `build/` |
 
-O LÖVE roda com LuaJIT (compatível com Lua 5.1), e o terminal com Lua 5.3. Por isso `functions.lua` deve usar só o que existe nas duas versões: nada de `//`, operadores de bits (`&`, `|`, `~`) ou `utf8` dentro dele.
+LÖVE runs on LuaJIT (Lua 5.1 compatible), while the terminal version runs on Lua 5.3. That is why `functions.lua` must only use what exists in both: no `//`, no bitwise operators (`&`, `|`, `~`) and no `utf8` inside it.
 
-## Licença
+## License
 
 [MIT](LICENSE)
